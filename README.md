@@ -6,41 +6,62 @@ Developers are often tasked with retrieving data from another application's API 
 
 Use the [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities. The documentation includes a section called "How to start" that will provide basic setup and usage instructions. Use `localStorage` to store any persistent data.
 
-## User Story
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+**Contact:**
+[LinkedIn](https://www.linkedin.com/in/juliet-george-864950b8/)
 
-## Acceptance Criteria
+**Built With**
+https://www.w3schools.com/jsref/prop_button_value.asp
 
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
+https://www.geeksforgeeks.org/jquery-set-the-value-of-an-input-text-field/
 
-The following image demonstrates the application functionality:
+https://www.w3schools.com/jsref/jsref_push.asp
 
-![weather dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
+https://developer.mozilla.org/en-US/docs/Web/API/History_API
 
-## Review
+https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 
-You are required to submit the following for review:
+https://medium.com/@monica1109/scheduling-settimeout-and-setinterval-ca2ee50cd99f
 
-* The URL of the deployed application.
+**Resources Used to Build**
+[Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[Jquery](https://jquery.com/)
+[Bootstrap 4](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
+[HTML](https://html.com/)
+[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[GitPages](https://pages.github.com/)
+[Git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
 
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
 
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+
+
+**Code Snippet**
+.then(function(response) {
+        console.log(response);
+
+        var pic = response.weather[0].icon;
+        var picAlt = response.weather[0].description;
+        $("#weather-pic").attr("src","http://openweathermap.org/img/wn/"+pic+"@2x.png")
+        $("#weather-pic").attr("alt",picAlt)
+
+
+        var userCity = response.name;
+        $("#city-name").text(userCity +"'s Current Weather Conditions ")
+        //console.log(userCity)
+       
+        var wind = response.wind.speed;
+        $("#windspeed").text("Wind Speed: " + wind + " MPH")
+        var humidity = response.main.humidity;
+        $("#humidity").text("Humidity: " + humidity + "%")
+        var temperature = response.main.temp;
+        $("#temperature").text("Temperature: " + temperature + "F")
+
+        var latitude = response.data.coord.lat;
+        var longitude = response.data.coord.lat;
+        var UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=ac7f727646315761c418c419133adbbf"
+        
+    
+        
+        
