@@ -16,33 +16,88 @@
 <body>
     <!--Title of the page lives here -->
     <header class="jumbotron bg-dark">
-        <h1 class="display-4 text-center text-primary font-weight-bold">Weather Dashboard <i class='fas fa-cloud-rain'></i></h1>
+        <h1 class="display-4 text-center text-primary font-weight-bold">Weather Dashboard <i
+                class='fas fa-cloud-rain'></i></h1>
         <p class="lead text-center text-primary">A Simple 5-Day Weather Forecast App.</p>
     </header>
-<div class="container">
-    <div class="row">
-        <!--Input form for user to search for the places.-->
-        <div class="col-4">
-            <form class="form-inline mr-auto">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-unique btn-primary btn-rounded btn-sm my-0" id="search-button" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+    <div class="container">
+        <div class="row">
+            <!--Input form for user to search for the places.-->
+            <div class="col-4">
+                <p class="font-weight-bold"> Type a city name to begin:</p>
+                <form class="form-inline mr-auto">
+                    <input class="form-control mr-sm-2" type="text" id="search-term" placeholder="Type a city name"
+                        aria-label="Search">
+                    <button class="btn btn-unique btn-primary btn-rounded btn-sm my-0" id="search-button" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
                 <button class=" btn btn-danger btn-sm mb-3" type="button" id="clear-search">Refresh Search Bar</button>
-              </form>
+
+                <div id="cached-cities">
+                    test
+                </div>
+            </div>
+
+            <div class=".container col-8">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 id="city-name"></h2>
+                        <img id="weather-pic" src="placeholder" alt="">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="current-date"></p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="temperature"></p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="humidity"></p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="windspeed"></p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="uv-index"></p>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class=".container col-8">
-                2 of 2
-        </div>
-    </div>
+     
 
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+        <!-- Optional JavaScript -->
+        
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+        
+</body>
+
 </html>
