@@ -13,7 +13,7 @@ $(document).ready(function() {
 // function to convert temperature
 
 function calculateF(k){
-    return Math.floor((K - 273.15) *1.8 +32);
+    return Math.floor((k - 273.15) *1.8 +32);
 
 };
 
@@ -36,12 +36,13 @@ setInterval(updateDay,1000); //refresh time every 1000ms
 
 
     
-    queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
+    
     
 
     //console.log(cityName)
 
-function Isweather(){
+function Isweather(cityName){
+    queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
   
 
     $.ajax({
@@ -49,7 +50,7 @@ function Isweather(){
         method: "GET"
     })
     .then(function(response) {
-        console.log(response);
+        //console.log(response);
 
         var pic = response.weather[0].icon;
         var picAlt = response.weather[0].description;
@@ -60,6 +61,7 @@ function Isweather(){
         var userCity = response.name;
         $("#city-name").text(userCity +"'s Current Weather Conditions ")
         //console.log(userCity)
+        console.log(response)
        
         var wind = response.wind.speed;
         $("#windspeed").text("Wind Speed: " + wind + " MPH")
@@ -68,8 +70,8 @@ function Isweather(){
         var temperature = calculateF(response.main.temp);
         $("#temperature").text("Temperature: " + temperature + "F")
 
-        var latitude = response.data.coord.lat;
-        var longitude = response.data.coord.lat;
+        var latitude = response.coord.lat;
+        var longitude = response.coord.lat;
         var UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=ac7f727646315761c418c419133adbbf"
         
         $.ajax({
@@ -86,7 +88,7 @@ function Isweather(){
 
 
 
-        queryURL = "api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf";
+        queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf";
 
 
         $.ajax({
@@ -97,28 +99,30 @@ function Isweather(){
             console.log(response)
 
             var futureCond = $(".future")
+            futureCond.empty();
 
             for ( var i = 0; i < futureCond.length; i++){
-                futureCond[i].empty();
+               
                 var index = i*8 + 4;
-                var futuredate = new Date(response.data.list[undex].dt * 1000);
+                var futuredate = new Date(response.list[index].dt * 1000);
                 //var 
                var currentDay1 = moment().format("MMMM Do YYYY");
                 var p = $("<p>");
                 p.attr("class", "mt-3 mb-0 forecast-date");
                 p.text(currentDay1);
                 futureCond[i].append(p);
-                var img = $("<img>")
-                var description = response.data.list[index].weather[0].description;
-                img.attr("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png")
+                var img = $('<img />')
+                var description = response.list[index].weather[0].description;
+                var pic1 = response.list[index].weather[0].icon
+                img.attr("src", "https://openweathermap.org/img/wn/" + pic + "@2x.png")
                 img.attr("src", description);
                 futureCond[i].append(img);
-                var pTemp = $("<p>");
-                var temp1 = calculateF(response.data.list[index].main.temp);
+                var pTemp = $("<p></p>");
+                var temp1 = calculateF(response.list[index].main.temp);
                 pTemp.text("Temperature: " + temp1 + "F" );
                 futureCond[i].append(pTemp);
-                var pHumid = $("<p>");
-                var humid = response.data.list[index].main.humidity;
+                var pHumid = $("<p></p>");
+                var humid = response.list[index].main.humidity;
                 pHumid.text("Humidity: " + humid + "%");
                 futureCond[i].append(pHumid);
 
@@ -145,13 +149,21 @@ function Isweather(){
 function renderhistory(){
     $("#cached-cities").empty();
     for(var i = 0; i < searchhistory.length; i++){
-        var button = 
+        var button = $("<a>").attr("href", "#").attr("id", "loc-btn").text(searchhistory[i]);
+        $("loc-btn").on("click", function(){
+            var val = $("loc-btn").val()
+            Isweather(val);
+
+
+
+        })
+        $("#cached-cities").append(button);
 
 
     }
 
 }
-
+renderhistory();
 
 
 $("#search-button").on("click", function(event) {
@@ -176,4 +188,4 @@ renderhistory();
 //on click event to clear search history 
 //save search history into local storage
 
-
+})
