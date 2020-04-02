@@ -10,8 +10,14 @@ $(document).ready(function() {
 //api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
 //http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
 
+// function to convert temperature
 
-var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+function calculateF(k){
+    return Math.floor((K - 273.15) *1.8 +32);
+
+};
+
+var searchhistory = JSON.parse(localStorage.getItem("search")) || [];
 
 var queryURL;
 var queryURL2;
@@ -28,16 +34,14 @@ setInterval(updateDay,1000); //refresh time every 1000ms
 
 
 
-$("#search-button").on("click", function(event) {
-    event.preventDefault();
-    var cityName = $("input").val().trim();
+
     
     queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
     
 
     //console.log(cityName)
 
-    //function weather(){
+function Isweather(){
   
 
     $.ajax({
@@ -61,7 +65,7 @@ $("#search-button").on("click", function(event) {
         $("#windspeed").text("Wind Speed: " + wind + " MPH")
         var humidity = response.main.humidity;
         $("#humidity").text("Humidity: " + humidity + "%")
-        var temperature = response.main.temp;
+        var temperature = calculateF(response.main.temp);
         $("#temperature").text("Temperature: " + temperature + "F")
 
         var latitude = response.data.coord.lat;
@@ -74,9 +78,10 @@ $("#search-button").on("click", function(event) {
         })
         .then(function(response) {
 
-            var uvindex = response.data[0].value;
-        $("#uv-index").text("UV Index:" + uvindex)
-
+            var uvindex = response.value;
+            var UVbutton = $('<button class="btn bg-primary">').text("UV Index: " + uvindex)
+            $("#uv-index").append(UVbutton)
+        
         })
 
 
@@ -90,6 +95,41 @@ $("#search-button").on("click", function(event) {
         })
         .then(function(response) {
             console.log(response)
+
+            var futureCond = $(".future")
+
+            for ( var i = 0; i < futureCond.length; i++){
+                futureCond[i].empty();
+                var index = i*8 + 4;
+                var futuredate = new Date(response.data.list[undex].dt * 1000);
+                //var 
+               var currentDay1 = moment().format("MMMM Do YYYY");
+                var p = $("<p>");
+                p.attr("class", "mt-3 mb-0 forecast-date");
+                p.text(currentDay1);
+                futureCond[i].append(p);
+                var img = $("<img>")
+                var description = response.data.list[index].weather[0].description;
+                img.attr("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png")
+                img.attr("src", description);
+                futureCond[i].append(img);
+                var pTemp = $("<p>");
+                var temp1 = calculateF(response.data.list[index].main.temp);
+                pTemp.text("Temperature: " + temp1 + "F" );
+                futureCond[i].append(pTemp);
+                var pHumid = $("<p>");
+                var humid = response.data.list[index].main.humidity;
+                pHumid.text("Humidity: " + humid + "%");
+                futureCond[i].append(pHumid);
+
+
+
+
+
+
+
+
+            };
         
         
         });
@@ -101,12 +141,39 @@ $("#search-button").on("click", function(event) {
 
 
     
+};
+function renderhistory(){
+    $("#cached-cities").empty();
+    for(var i = 0; i < searchhistory.length; i++){
+        var button = 
+
+
+    }
+
+}
+
+
+
+$("#search-button").on("click", function(event) {
+    event.preventDefault();
+    var cityName = $("input").val().trim();
+    searchhistory.push(cityName)
+    Isweather(cityName);
+    localStorage.setItem("search cities",JSON.stringify(searchhistory));
+    renderhistory();
+
+
 });
-// function to convert temperature
+
+$("#clear-search").on("click", function(event){
+searchhistory = [];
+renderhistory();
+
+
+})
+
+
 //on click event to clear search history 
 //save search history into local storage
 
-
-
-});
 
