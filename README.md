@@ -1,4 +1,4 @@
-# weather-dashboard
+# Weather Dashboard
 
  06 Server-Side APIs: Weather Dashboard
 
@@ -38,12 +38,10 @@ Even though I was able to get all the values for the 5 day forecast. I was not a
 
 **Website**
 
-
+![Weather DashBoard](https://github.com/Jules-Boogie/weather-dashboard/blob/master/Capture.PNG)
 
 
 **Code Snippet**
-.then(function(response) {
-        console.log(response);
 
         var pic = response.weather[0].icon;
         var picAlt = response.weather[0].description;
