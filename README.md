@@ -32,7 +32,11 @@ https://medium.com/@monica1109/scheduling-settimeout-and-setinterval-ca2ee50cd99
 [GitPages](https://pages.github.com/)
 [Git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
 
+**Challenges**
 
+Even though I was able to get all the values for the 5 day forecast. I was not able to render them onto the html page. This is something I will work on. 
+
+**Website**
 
 
 
