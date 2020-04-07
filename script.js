@@ -1,4 +1,4 @@
-$(document).ready(function () {
+
 
     // {"appid": "ac7f727646315761c418c419133adbbf"};
     //5 day weather forecast
@@ -39,7 +39,7 @@ $(document).ready(function () {
     //console.log(cityName)
 
     function isWeather(cityName) {
-      var  queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
+        queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
 
 
         $.ajax({
@@ -47,7 +47,7 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-                //console.log(response);
+                console.log(response);
 
                 var pic = response.weather[0].icon;
                 var picAlt = response.weather[0].description;
@@ -68,16 +68,18 @@ $(document).ready(function () {
                 $("#temperature").text("Temperature: " + temperature + "F")
 
                 var latitude = response.coord.lat;
-                var longitude = response.coord.lat;
-                var UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=ac7f727646315761c418c419133adbbf"
+                var longitude = response.coord.lon;
+                var UVqueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=ac7f727646315761c418c419133adbbf" + "&cnt=1"
+                
 
                 $.ajax({
                     url: UVqueryURL,
                     method: "GET"
                 })
                     .then(function (response) {
+                        console.log(response)
 
-                        var uvindex = response.value;
+                        var uvindex = response[0].value;
                         var UVbutton = $('<button class="btn bg-primary">').text("UV Index: " + uvindex)
                         $("#uv-index").append(UVbutton);
 
@@ -85,59 +87,58 @@ $(document).ready(function () {
 
 
 
-                
+
                 queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf";
-                
+
 
                 $.ajax({
                     url: queryURL,
                     method: "GET"
-                    
+
                 })
                     .then(function (response) {
                         console.log(response)
 
-                        var futureCond = $(".future")
-                        futureCond.val('');
+                        const futureCond = $(".future")
+                        
 
                         for (var i = 0; i < futureCond.length; i++) {
+                            //futureCond[i].innerHTML = "";
 
-                            var index = i * 8 + 4;
-                            var futuredate = new Date(response.list[i].dt * 1000);
+                            const index = i * 8 + 4;
+                            const futuredate = new Date(response.list[index].dt * 1000);
                             console.log(futuredate)
-                            var day = futuredate.getDate();
+                            const day = futuredate.getDate();
                             console.log(day)
-                            var month = futuredate.getMonth() + 1; // date seemed to be decreasing
+                            const month = futuredate.getMonth() + 1; // date seemed to be decreasing
                             console.log(month)
-                            var year = futuredate.getFullYear();
+                            const year = futuredate.getFullYear();
                             //var 
-                            var currentDay1 = month + "/" + day + "/" + year
-                            console.log(currentDay1)
-                            var p = $('<p>').text(currentDay1)
-                            futureCond.append(p);
-                            var img = $('<img id="weather-pc"/>')
+                            //var currentDay1 = month + "/" + day + "/" + year
+                            //console.log(currentDay1)
+                            const dateEl = $("<p>").text(month + "/" + day + "/" + year)
+                            futureCond[i].append(dateEl);
+                            const imgEl = $('<img id="weather-pc"/>')
                             var description1 = response.list[index].weather[0].description;
                             var pic1 = response.list[index].weather[0].icon
-                            $("#weather-pc").attr("src", "https://openweathermap.org/img/wn/" + pic1 + "@2x.png")
-                            $("#weather-pc").attr("alt", description1);
-                            futureCond.append(img);
-                            var pTemp = $('<p id="p-temp"> </p>').text("Temperature: " + temp1 + " °F");
+                            imgEl.attr("src", "https://openweathermap.org/img/wn/" + pic1 + "@2x.png")
+                            imgEl.attr("alt", description1);
+                            futureCond[i].append(imgEl);
+                            const pTemp = $('<p id="p-temp"> </p>').text("Temperature: " + temp1 + " °F");
                             var temp1 = calculateF(response.list[index].main.temp);
                             //$("#p-temp").text("Temperature: " + temp1 + "F");
-                            futureCond.append(pTemp);
-                            var pHumid = $('<p id="p-humid"></p>').text("Humidity: " + humid + "%");;
+                            futureCond[i].append(pTemp);
+                            const pHumid = $('<p id="p-humid"></p>').text("Humidity: " + humid + "%");;
                             var humid = response.list[index].main.humidity;
                             console.log(humid)
-                            futureCond.append(pHumid);
+                            futureCond[i].append(pHumid);
                         };
 
 
-                    });   
+                    });
             });
 
     };
-            
-        
 
 
 
@@ -147,47 +148,47 @@ $(document).ready(function () {
 
 
 
-function renderhistory() {
-    $("#cached-cities").empty();
-    for (var i = 0; i < searchhistory.length; i++) {
-        var searchBar = $("<input>").attr("id", "loc-input").attr("class","form-control").attr("value",searchhistory[i]);
-        $("loc-input").on("click", function () {
-            var val = $("loc-input").val()
-            Isweather(val);
+
+
+    function renderhistory() {
+        $("#cached-cities").empty();
+        for (var i = 0; i < searchhistory.length; i++) {
+            var searchBar = $("<input>").attr("id", "loc-input").attr("class", "d-block form-control").attr("value", searchhistory[i]).attr("type", "text").attr("readonly", true);
+            searchBar.on("click", function (event) {
+                event.preventDefault();
+                var myval = searchBar.val();
+                isWeather(myval);
+                console.log(myval)
 
 
 
-        })
-        $("#cached-cities").append(searchBar);
+            })
+            $("#cached-cities").append(searchBar);
 
 
+        }
     }
 
-}
-renderhistory();
-if (searchhistory.length > 0) {
-    Isweather(searchhistory[searchhistory.length - 1]);
-}
 
 
 
-$("#search-button").on("click", function (event) {
-    event.preventDefault();
-    var cityName = $("input").val().trim();
-    searchhistory.push(cityName)
-    isWeather(cityName);
-    localStorage.setItem("search cities", JSON.stringify(searchhistory));
-    renderhistory();
+        $("#search-button").on("click", function () {
+            event.preventDefault();
+            var cityName = $("input").val().trim();
+            searchhistory.push(cityName)
+            isWeather(cityName);
+            localStorage.setItem("search cities", JSON.stringify(searchhistory));
+            renderhistory();
 
 
-});
+        });
 
-$("#clear-search").on("click", function (event) {
-    searchhistory = [];
-    renderhistory();
+        $("#clear-search").on("click", function (event) {
+            searchhistory = [];
+            renderhistory();
 
 
-});
+        });
 
 
         //on click event to clear search history 
@@ -208,5 +209,4 @@ $("#clear-search").on("click", function (event) {
         birthday.getTimezoneOffset() // -540 (time zone offset in minutes based on your browser's location)
         
         */
-})
 
