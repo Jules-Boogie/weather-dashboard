@@ -39,11 +39,11 @@
     //console.log(cityName)
 
     function isWeather(cityName) {
-        queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
+        //queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
 
 
         $.ajax({
-            url: queryURL2,
+            url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf", //currentday,
             method: "GET"
         })
             .then(function (response) {
@@ -78,6 +78,7 @@
                 })
                     .then(function (response) {
                         console.log(response)
+                        $("#uv-index").empty()
 
                         var uvindex = response[0].value;
                         var UVbutton = $('<button class="btn bg-primary">').text("UV Index: " + uvindex)
@@ -88,22 +89,22 @@
 
 
 
-                queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf";
+                //queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf";
 
 
                 $.ajax({
-                    url: queryURL,
+                    url: "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf",
                     method: "GET"
 
                 })
                     .then(function (response) {
                         console.log(response)
 
-                        const futureCond = $(".future")
+                        const futureCond = $(".future");
                         
 
                         for (var i = 0; i < futureCond.length; i++) {
-                            //futureCond[i].innerHTML = "";
+                            futureCond.text("");
 
                             const index = i * 8 + 4;
                             const futuredate = new Date(response.list[index].dt * 1000);
@@ -116,22 +117,25 @@
                             //var 
                             //var currentDay1 = month + "/" + day + "/" + year
                             //console.log(currentDay1)
-                            const dateEl = $("<p>").text(month + "/" + day + "/" + year)
-                            futureCond[i].append(dateEl);
+                            const dateEl = $('<p id="date"></p>');
+                            dateEl.text(month + "/" + day + "/" + year);
+                            futureCond.append(dateEl);
                             const imgEl = $('<img id="weather-pc"/>')
                             var description1 = response.list[index].weather[0].description;
                             var pic1 = response.list[index].weather[0].icon
                             imgEl.attr("src", "https://openweathermap.org/img/wn/" + pic1 + "@2x.png")
                             imgEl.attr("alt", description1);
-                            futureCond[i].append(imgEl);
-                            const pTemp = $('<p id="p-temp"> </p>').text("Temperature: " + temp1 + " °F");
+                            futureCond.append(imgEl);
+                            const pTemp = $('<p id="p-temp"> </p>');
+                            pTemp.text("Temperature: " + temp1 + " °F");
                             var temp1 = calculateF(response.list[index].main.temp);
                             //$("#p-temp").text("Temperature: " + temp1 + "F");
-                            futureCond[i].append(pTemp);
-                            const pHumid = $('<p id="p-humid"></p>').text("Humidity: " + humid + "%");;
+                            futureCond.append(pTemp);
+                            const pHumid = $('<p id="p-humid"></p>');
+                            pHumid.text("Humidity: " + humid + "%");;
                             var humid = response.list[index].main.humidity;
                             console.log(humid)
-                            futureCond[i].append(pHumid);
+                            futureCond.append(pHumid);
                         };
 
 
