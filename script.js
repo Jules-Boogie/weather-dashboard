@@ -1,4 +1,4 @@
-
+$( document ).ready(function() {
 
     // {"appid": "ac7f727646315761c418c419133adbbf"};
     //5 day weather forecast
@@ -218,3 +218,4 @@
         
         */
 
+}
