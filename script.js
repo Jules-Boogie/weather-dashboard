@@ -157,12 +157,12 @@
     function renderhistory() {
         $("#cached-cities").empty();
         for (var i = 0; i < searchhistory.length; i++) {
-            var searchBar = $("<input>").attr("id", "loc-input").attr("class", "d-block form-control").attr("value", searchhistory[i]).attr("type", "text").attr("readonly", true);
+            var searchBar = $("<input>").attr("id", "loc-input").attr("class", " form-control").attr("value", searchhistory[i]).attr("type", "text").attr("readonly", true);
             searchBar.on("click", function (event) {
                 event.preventDefault();
-                var myval = searchBar.val();
-                isWeather(myval);
-                console.log(myval)
+                //var myval = searchBar.val();
+                isWeather($("#loc-input").val());
+                //console.log(myval)
 
 
 
@@ -171,6 +171,10 @@
 
 
         }
+    }
+    renderhistory();
+    if (searchhistory.length > 0) {
+        isWeather(searchhistory[searchhistory.length - 1]);
     }
 
 
@@ -181,7 +185,7 @@
             var cityName = $("input").val().trim();
             searchhistory.push(cityName)
             isWeather(cityName);
-            localStorage.setItem("search cities", JSON.stringify(searchhistory));
+            localStorage.setItem("search", JSON.stringify(searchhistory));
             renderhistory();
 
 
