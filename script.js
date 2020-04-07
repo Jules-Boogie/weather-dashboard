@@ -39,11 +39,11 @@ $( document ).ready(function() {
     //console.log(cityName)
 
     function isWeather(cityName) {
-        //queryURL2 = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
+        //queryURL2 = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf"; //currentday
 
 
         $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf", //currentday,
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf", //currentday,
             method: "GET"
         })
             .then(function (response) {
@@ -93,7 +93,7 @@ $( document ).ready(function() {
 
 
                 $.ajax({
-                    url: "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf",
+                    url: "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac7f727646315761c418c419133adbbf",
                     method: "GET"
 
                 })
