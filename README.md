@@ -10,18 +10,7 @@ Use the [OpenWeather API](https://openweathermap.org/api) to retrieve weather da
 **Contact:**
 [LinkedIn](https://www.linkedin.com/in/juliet-george-864950b8/)
 
-**Built With**
-https://www.w3schools.com/jsref/prop_button_value.asp
 
-https://www.geeksforgeeks.org/jquery-set-the-value-of-an-input-text-field/
-
-https://www.w3schools.com/jsref/jsref_push.asp
-
-https://developer.mozilla.org/en-US/docs/Web/API/History_API
-
-https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-
-https://medium.com/@monica1109/scheduling-settimeout-and-setinterval-ca2ee50cd99f
 
 **Resources Used to Build**
 [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -32,9 +21,6 @@ https://medium.com/@monica1109/scheduling-settimeout-and-setinterval-ca2ee50cd99
 [GitPages](https://pages.github.com/)
 [Git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
 
-**Challenges**
-
-Even though I was able to get all the values for the 5 day forecast. I was not able to render them onto the html page. This is something I will work on. 
 
 **Website**
 
