@@ -100,43 +100,77 @@ $( document ).ready(function() {
                     .then(function (response) {
                         console.log(response)
 
-                        const futureCond = $(".future");
+               
+                         $("#future").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
+
+                        // loop over all forecasts (by 3-hour increments)
+                        for (var i = 0; i < response.list.length; i++) {
+                            // only look at forecasts around 3:00pm
+                            if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+                            // create html elements for a bootstrap card
+                            var col = $("<div>").addClass("col-md-2 col-sm-12");
+                            var card = $("<div>").addClass("card bg-primary text-white");
+                            var body = $("<div>").addClass("card-body p-2");
+
+                            var title = $("<h5>").addClass("card-title").text(new Date(response.list[i].dt_txt).toLocaleDateString());
+
+                            var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+
+                            var p1 = $("<p>").addClass("card-text").text("Temp: " + calculateF(response.list[i].main.temp_max) + " °F");
+                            var p2 = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");
+
+                            // merge together and put on page
+                            col.append(card.append(body.append(title, img, p1, p2)));
+                            $("#future .row").append(col);
+                            }
+                        }
+
+
+                        // var rowDiv = $("<div>").attr("class","forecast")
+                        // futureCond.append(rowDiv)
+                        
                         
 
-                        for (var i = 0; i < futureCond.length; i++) {
-                            futureCond.text("");
+                        // for (var i = 0; i < futureCond.length; i++) {
+                        //     //futureCond.text("");
 
-                            const index = i * 8 + 4;
-                            const futuredate = new Date(response.list[index].dt * 1000);
-                            console.log(futuredate)
-                            const day = futuredate.getDate();
-                            console.log(day)
-                            const month = futuredate.getMonth() + 1; // date seemed to be decreasing
-                            console.log(month)
-                            const year = futuredate.getFullYear();
-                            //var 
-                            //var currentDay1 = month + "/" + day + "/" + year
-                            //console.log(currentDay1)
-                            const dateEl = $('<p id="date"></p>');
-                            dateEl.text(month + "/" + day + "/" + year);
-                            futureCond.append(dateEl);
-                            const imgEl = $('<img id="weather-pc"/>')
-                            var description1 = response.list[index].weather[0].description;
-                            var pic1 = response.list[index].weather[0].icon
-                            imgEl.attr("src", "https://openweathermap.org/img/wn/" + pic1 + "@2x.png")
-                            imgEl.attr("alt", description1);
-                            futureCond.append(imgEl);
-                            const pTemp = $('<p id="p-temp"> </p>');
-                            pTemp.text("Temperature: " + temp1 + " °F");
-                            var temp1 = calculateF(response.list[index].main.temp);
-                            //$("#p-temp").text("Temperature: " + temp1 + "F");
-                            futureCond.append(pTemp);
-                            const pHumid = $('<p id="p-humid"></p>');
-                            pHumid.text("Humidity: " + humid + "%");;
-                            var humid = response.list[index].main.humidity;
-                            console.log(humid)
-                            futureCond.append(pHumid);
-                        };
+                        //     const index = i * 8 + 4;
+                        //     const futuredate = new Date(response.list[index].dt * 1000);
+                        //     console.log(futuredate)
+                        //     const day = futuredate.getDate();
+                        //     console.log(day)
+                        //     const month = futuredate.getMonth() + 1; // date seemed to be decreasing
+                        //     console.log(month)
+                        //     const year = futuredate.getFullYear();
+                        //     //var 
+                        //     //var currentDay1 = month + "/" + day + "/" + year
+                        //     //console.log(currentDay1)
+                        //     var colmn = $("<div>").attr("class","one-fifth");
+                        //     rowDiv.append(colmn);
+                        //     const dateCard = $('<div>').attr("class","card text-black bg-primary");
+                        //     colmn.append(dateCard);
+                        //    var cardHead = $("<div>").attr("class","card-header").text(month + "/" + day + "/" + year);
+                        //     dateCard.append(cardHead);
+                        //     var cardImg = $('<img>').attr("class","card-img-top");
+                        //     var description1 = response.list[index].weather[0].description;
+            
+                        //     var pic1 = response.list[index].weather[0].icon
+                        //     cardImg.attr("src", "https://openweathermap.org/img/wn/" + pic1 + "@2x.png")
+                        //     cardImg.attr("alt", description1);
+                        //     dateCard.append(cardImg);
+                        //     var cardBody = $("div").attr("class","card-body");
+                        //     dateCard.append(cardBody);
+                        //     var pTemp = $('<p>').attr("class","card-text");
+                        //     pTemp.text("Temperature: " + temp1 + " °F");
+                        //     var temp1 = calculateF(response.list[index].main.temp);
+                        //     //$("#p-temp").text("Temperature: " + temp1 + "F");
+                        //     cardBody.append(pTemp);
+                        //     var pHumid = $('<p>').attr("class","card-text");
+                        //     pHumid.text("Humidity: " + humid + "%");;
+                        //     var humid = response.list[index].main.humidity;
+                        //     console.log(humid)
+                        //     cardBody.append(pHumid);
+                        // };
 
 
                     });
