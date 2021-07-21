@@ -7,19 +7,7 @@ This project uses the [OpenWeather API](https://openweathermap.org/api) to retri
 [LinkedIn](https://www.linkedin.com/in/juliet-george-864950b8/)
 
 
-
-**Resources Used to Build**
-
-[Javascript] (https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[Jquery] (https://jquery.com/)
-[Bootstrap 4] (https://getbootstrap.com/docs/4.4/getting-started/introduction/)
-[HTML] (https://html.com/)
-[CSS] (https://developer.mozilla.org/en-US/docs/Web/CSS)
-[GitPages] (https://pages.github.com/)
-[Git] (https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
-
-
-**Website**
+**App Photo**
 
 ![Weather DashBoard](https://github.com/Jules-Boogie/weather-dashboard/blob/master/Capture.PNG)
 
